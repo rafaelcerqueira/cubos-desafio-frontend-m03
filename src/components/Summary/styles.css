@@ -1,0 +1,28 @@
+.container-summary {
+    background: #FAFAFA;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    width: 190px;
+    height: 230px;
+
+    padding: 24px 32px;
+}
+
+.container-summary div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.in {
+    color: #645FFB;
+}
+
+.out {
+    color: #FA8C10;
+}
+
+.balance {
+    color: #3A9FF1;
+}

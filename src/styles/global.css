@@ -1,3 +1,6 @@
+@import url('./modal.css');
+@import url('./utils.css');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +8,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Rubik';
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+input {
+  background-color: #FFFFFF;
+
+  height: 50px;
+  
+  border: 1px solid #555555;
+  border-radius: 5px;
 }
 
 code {
