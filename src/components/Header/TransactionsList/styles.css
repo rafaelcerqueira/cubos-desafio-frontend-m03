@@ -23,4 +23,14 @@
     width: 150px;
     height: 55px;
 
+    position: relative;
+}
+
+.value-item {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+}
+
+.action-button {
+    cursor: pointer;
 }

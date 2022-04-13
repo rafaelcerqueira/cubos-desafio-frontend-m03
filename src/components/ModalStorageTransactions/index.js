@@ -1,3 +1,5 @@
+//MODAL - FINALIZADO
+
 import React from 'react';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
@@ -67,7 +69,7 @@ function ModalStorageTransactions({
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log('funciona')
+    //console.log('funcionando!')
 
     const [day, month, year] = form.date.split('/');
 
