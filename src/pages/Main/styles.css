@@ -1,12 +1,18 @@
+.container-main {
+  display: flex;
+  flex-direction: column;
+}
+
 main {
   background-color: #fff;
 
   display: flex;
   gap: 40px;
+  justify-content: center;
 
   border-radius: 60px 60px 0px 0px;
   
-  height: calc(100vh - 220px);
+  min-height: calc(100vh - 220px);
   margin-top: -80px;
   padding: 50px 90px;
 }

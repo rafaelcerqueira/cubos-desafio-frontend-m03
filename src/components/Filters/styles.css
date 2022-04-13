@@ -1,0 +1,130 @@
+.container-filters {
+    margin-bottom: 50px;
+    width: 950px;
+}
+
+.btn-filter {
+    background: #FAFAFA;
+
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: none;
+
+    height: 30px;
+    padding: 8px 16px;
+}
+
+.content-filters {
+    background: #FAFAFA;
+
+    display: flex;
+
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    height: 220px;
+    margin-top: 16px;
+}
+
+.items-filter {
+    width: 220px;
+    padding: 32px;
+}
+
+.items-filter strong{
+    color: #B9B9B9;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.separator {
+    border-right: 1px solid #EAEAEA;
+    height: auto;
+    margin: 20px 0;
+}
+
+.container-action-buttons {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 18px 18px 0;
+}
+
+
+
+.btn-clear-filters {
+    background: #FAFAFA;
+
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: none;
+
+    color: #000000;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+
+    width: 98px;
+    height: 40px;
+    padding: 8px;
+    margin-right: 16px;
+}
+
+.btn-apply-filters {
+    background: linear-gradient(264.83deg, #3A9FF1 -3.28%, #05EDE3);
+
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: none;
+
+    color: #FFFFFF;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+
+    width: 98px;
+    height: 40px;
+    padding: 8px;
+}
+
+.container-chips {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 80%;
+    margin-top: 18px;
+}
+
+.container-input-filter {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-input-filter:first-of-type {
+    margin-top: 18px;
+}
+
+.container-input-filter:last-of-type {
+    margin-top: 12px;
+}
+
+.container-input-filter label{
+    font-family: 'Rubik', sans-serif;
+    font-size: 9px;
+    color: #484848;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.container-input-filter input{
+    background: #FFFFFF;
+    border: 1px solid #7B61FF;
+    box-sizing: border-box;
+    border-radius: 2px;
+    width: 80px;
+    height: 22px;
+    padding: 15px 4px;
+    font-size: 12px;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import Filters from '../../components/Filters';
 import Header from '../../components/Header';
 import TransactionList from '../../components/Header/TransactionsList';
 import ModalStorageTransactions from '../../components/ModalStorageTransactions';
@@ -43,16 +44,24 @@ function Main() {
   }
 
   return (
-    <div className="App">
+    <div className="container-main">
       <Header />
       <main>
-        <TransactionList 
+      <div>
+        <Filters 
           transactions={transactions}
-          setCurrentTransaction={setCurrentTransaction}
           reload={reload}
           setReload={setReload}
-          handleOrderTransactions={handleOrderTransactions}
+          handleOrderTransactions={handleOrderTransactions} 
         />
+          <TransactionList
+            transactions={transactions}
+            setCurrentTransaction={setCurrentTransaction}
+            reload={reload}
+            setReload={setReload}
+            handleOrderTransactions={handleOrderTransactions}
+          />
+      </div>
         <div>
           <Summary 
             transactions={transactions}
