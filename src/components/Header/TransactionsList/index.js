@@ -9,7 +9,8 @@ import ConfirmChoice from '../../ConfirmChoice';
 
 function TransactionList ({ 
     transactions, 
-    setCurrentTransaction, 
+    setCurrentTransaction,
+    handleOrderTransactions, 
     reload, 
     setReload
  }){
@@ -26,7 +27,10 @@ function TransactionList ({
 
     return (
         <div className="table">
-            <TableHeader />
+            <TableHeader
+                transactions={transactions}
+                handleOrderTransactions={handleOrderTransactions} 
+            />
             <div className="table-body">
                 {transactions.map((item) => (
                     <div className="table-line" key={item.id}>

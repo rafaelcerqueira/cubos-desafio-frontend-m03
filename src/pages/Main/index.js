@@ -29,6 +29,10 @@ function Main() {
 
   }, [open]);
 
+  function handleOrderTransactions (newTransactions){
+    setTransactions(newTransactions);
+  }
+
   async function handleLoadTransactions (){
     const response = await fetch('http://localhost:3334/transactions', {
       method: 'GET'
@@ -47,6 +51,7 @@ function Main() {
           setCurrentTransaction={setCurrentTransaction}
           reload={reload}
           setReload={setReload}
+          handleOrderTransactions={handleOrderTransactions}
         />
         <div>
           <Summary 

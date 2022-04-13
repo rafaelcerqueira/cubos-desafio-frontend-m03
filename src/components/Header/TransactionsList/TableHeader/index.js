@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import ArrowDown from '../../../../assets/arrow-down.svg';
 import ArrowUp from '../../../../assets/arrow-up.svg';
 import './styles.css';
+import { orderColumnAsc, orderColumnDesc } from './utils';
 
-function TableHeader (){
+function TableHeader ({ transactions, handleOrderTransactions }){
     const [filter, setFilter] = useState('date');
     const [order, setOrder] = useState('asc');
+
+    useEffect(() => {
+        if (order === 'desc') {
+            orderAllTransactionsByDesc();
+            return
+        }
+
+        orderAllTransactionsByAsc();
+    },[filter, order]);
+
+    function orderAllTransactionsByAsc (){
+        const localTransactions = [...transactions];
+
+        localTransactions.sort((a, b) => orderColumnAsc(a, b, filter));
+
+        handleOrderTransactions(localTransactions);
+    }
+
+    function orderAllTransactionsByDesc (){
+        const localTransactions = [...transactions];
+
+        localTransactions.sort((a, b) => orderColumnDesc(a, b, filter));
+
+        handleOrderTransactions(localTransactions);
+    }
+
+    
 
     function handleChangeFilter (type){
         if (filter === type){
