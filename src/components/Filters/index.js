@@ -3,7 +3,7 @@ import './styles.css';
 import filterIcon from '../../assets/filter-icon.svg'
 import Chip from '../Chip';
 import defaultWeeksDays from './defaultWeeksDay';
-import { getOnlySelectedWeekDays } from './utils';
+import { getOnlySelectedWeekDays, mergeNewAndOldCategs } from './utils';
 
 function Filters ({ 
     transactions, 
@@ -19,31 +19,19 @@ function Filters ({
     const [transactionsInFilter, setTransactionInFilter] = useState([]);
 
     useEffect(() => {
-        const allCaegories = [];
 
-        for (const transact of transactionsInFilter) {
-            allCaegories.push({
-                name: transact.category,
-                selected: false
-            });
-        }
-
-        const categsId = [];
-        const categoriesWithoutDupplicatedItems = [];
-
-        for (const categ of allCaegories) {
-            if(categsId.indexOf(categ.name) === -1){
-                categsId.push(categ.name);
-                categoriesWithoutDupplicatedItems.push(categ);
-            } 
-        }
-
-        setCategories(categoriesWithoutDupplicatedItems );
     }, [transactionsInFilter]);
 
     useEffect(() => {
         loadTransactionsInFilter();
-    }, [transactions])
+    }, [transactions]);
+
+    function populateCategoriesInFilters() {
+
+        const allCategories = mergeNewAndOldCategs(transactionsInFilter, categories);
+        setCategories(allCategories);
+
+    }
 
     async function loadTransactionsInFilter(){
         const response = await fetch('http://localhost:3334/transactions', {
@@ -99,46 +87,102 @@ function Filters ({
         setReload(!reload);
     }
 
+    function apllyFilterOnlyByValueMinAndMax(localTransactions) {
+        const transactionsFilteredByValue = [];
+
+        for (const transact of localTransactions) {
+            
+            if(minValue && Number(transact.value) < minValue){
+                continue;
+            }
+
+            if(maxValue && Number(transact.value) > maxValue){
+                continue;
+            }
+
+            if(minValue && minValue <= Number(transact.value)){
+                transactionsFilteredByValue.push(transact);
+            }
+
+            if(maxValue && maxValue >= Number(transact.value)){
+                transactionsFilteredByValue.push(transact);
+            }
+        }
+
+        const idTransactions = [];
+        const removedDuplicatedTransactions = [];
+
+        for (const transact of transactionsFilteredByValue) {
+            if(idTransactions.indexOf(transact.id) === -1) {
+                idTransactions.push(transact.id);
+                removedDuplicatedTransactions.push(transact);
+            }
+        }
+
+        handleOrderTransactions(removedDuplicatedTransactions);
+
+    }
+
+    function apllyAllFilters(localTransactions, selectedDays, selectedCategs){
+        const filteredTransactions = [];
+
+        for (const transact of localTransactions) {
+            
+            if(minValue && Number(transact.value) < minValue){
+                continue;
+            }
+
+            if(maxValue && Number(transact.value) > maxValue){
+                continue;
+            }
+
+            if(selectedDays.length > 0 && selectedCategs.length > 0) {
+                if(selectedDays.includes(transact.week_day.toLowerCase()) && selectedCategs.includes(transact.category.toLowerCase())) {
+                    filteredTransactions.push(transact);
+                }
+                continue;
+            }
+
+            if(selectedDays.length === 0 && selectedDays.includes(transact.week_day.toLowerCase())){
+                filteredTransactions.push(transact);
+                continue;
+            }
+            if(selectedCategs.length === 0 && selectedCategs.includes(transact.category.toLowerCase())){
+                filteredTransactions.push(transact);
+                continue;
+            }
+        }
+
+        const transactionsIdAux = [];
+        const transactionsWithoutDuplicated = [];
+
+        for (const transact of filteredTransactions) {
+            if(transactionsIdAux.indexOf(transact.id) === -1){
+                transactionsIdAux.push(transact.id);
+                transactionsWithoutDuplicated.push(transact);
+            }
+        }
+
+        handleOrderTransactions(transactionsWithoutDuplicated);
+    }
+
     function handleApplyFilters (){
-        const selectedDays = getOnlySelectedWeekDays(weekDays);
-        
+        const selectedDays = getOnlySelectedWeekDays(weekDays);        
         const selectedCategs = getOnlySelectedWeekDays(categories);
 
-        const localTransactions = [...transactions];
+        if(!selectedDays.length && !selectedCategs.length && !minValue && !maxValue) {
+            setReload(!reload);
+            return;
+        }
+
+        const localTransactions = [...transactionsInFilter];
 
         if(selectedDays.length === 0 && selectedCategs.length === 0) {
-            const transactionsFilteredByValue = [];
-
-            for (const transact of localTransactions) {
-                if(minValue && Number(transact.value) < minValue){
-                    continue;
-                }
-
-                if(maxValue && Number(transact.value) > maxValue){
-                    continue;
-                }
-
-                if(minValue && minValue <= Number(transact.value)){
-                    transactionsFilteredByValue.push(transact);
-                }
-
-                if(maxValue && maxValue >= Number(transact.value)){
-                    transactionsFilteredByValue.push(transact);
-                }
-            }
-
-            const idTransactions = [];
-            const removedDuplicatedTransactions = [];
-
-            for (const transact of transactionsFilteredByValue) {
-                if(idTransactions.indexOf(transact.id) === -1) {
-                    idTransactions.push(transact.id);
-                    removedDuplicatedTransactions.push(transact);
-                }
-            }
-
-            handleOrderTransactions(removedDuplicatedTransactions);
-        }      
+            apllyFilterOnlyByValueMinAndMax(localTransactions);
+            return;
+        }
+        
+        apllyAllFilters(localTransactions, selectedDays, selectedCategs);
     }
 
     return (
